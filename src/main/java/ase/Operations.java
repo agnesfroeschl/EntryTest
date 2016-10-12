@@ -2,6 +2,7 @@ package ase;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.math.BigInteger;
 import java.util.Arrays;
 
 /**
@@ -10,15 +11,15 @@ import java.util.Arrays;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Operations {
 
-    private int[] numbers;
+    private BigInteger[] numbers;
     private String operator;
 
 
-    public int[] getNumbers() {
+    public BigInteger[] getNumbers() {
         return numbers;
     }
 
-    public void setNumbers(int[] numbers) {
+    public void setNumbers(BigInteger[] numbers) {
         this.numbers = numbers;
     }
 

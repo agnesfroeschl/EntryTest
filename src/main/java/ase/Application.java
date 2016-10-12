@@ -33,36 +33,50 @@ public class Application {
     @Bean
     public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
         return args -> {
-            Number number = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/1/testcase/1", Number.class);
-            log.info(number.toString());
+            /*TESTCASE 1*/
+            for(int i = 1; i <= 10; i ++){
+                Number number = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/1/testcase/"+i, Number.class);
+                log.info(number.toString());
+                NumberClient numberClient = new NumberClient();
+                ResponseEntity<Solution> responseEntity= numberClient.invert(number);
+                ResponseEntity<Result> response = restTemplate.postForEntity(
+                        getBaseUrl()+"/assignment/stage/1/testcase/"+i,
+                        responseEntity,
+                        Result.class);
+            }
 
-            NumberClient numberClient = new NumberClient();
-            ResponseEntity<Solution> responseEntity= numberClient.invert(number);
-            log.info(responseEntity.toString());
-            System.out.println("response; "+responseEntity.toString());
-            ResponseEntity<Result> response = restTemplate.postForEntity(
-                    getBaseUrl()+"/assignment/stage/1/testcase/1",
-                    responseEntity,
-                    Result.class);
-            log.info(response.toString());
-            System.out.println(response.getBody());
+            /*TESTCASE 2*/
+            for(int i = 1; i <= 20; i++){
+                Variables var = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/2/testcase/"+i, Variables.class);
+                VariablesClient variablesClient = new VariablesClient();
+                ResponseEntity<Solution> responseEntityVar= variablesClient.sum(var);
+                ResponseEntity<Result> response = restTemplate.postForEntity(
+                        getBaseUrl()+"/assignment/stage/2/testcase/"+i,
+                        responseEntityVar,
+                        Result.class);
+            }
 
-            Variables var = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/2/testcase/1", Variables.class);
-            log.info(var.toString());
-            VariablesClient variablesClient = new VariablesClient();
-            ResponseEntity<Variables> responseEntityVar= variablesClient.invert(var);
-            log.info(responseEntityVar.toString());
-            /*ResponseEntity<Result> responseVar = restTemplate.postForEntity(
-                    getBaseUrl()+"/assignment/stage/2/testcase/1",
-                    responseEntity,
-                    Result.class);
-            log.info(responseVar.toString());*/
+            /*TESTCASE 3*/
+            for(int i = 1; i <= 30; i++){
+                NumberArray numberArray = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/3/testcase/"+i, NumberArray.class);
+                NumberArrayClient variablesClient = new NumberArrayClient();
+                ResponseEntity<Solution> responseEntityNumArr= variablesClient.sum(numberArray);
+                ResponseEntity<Result> response = restTemplate.postForEntity(
+                        getBaseUrl()+"/assignment/stage/3/testcase/"+i,
+                        responseEntityNumArr,
+                        Result.class);
+            }
 
-            NumberArray numArr = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/3/testcase/1", NumberArray.class);
-            log.info(numArr.toString());
-
-            Operations op = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/4/testcase/1", Operations.class);
-            log.info(op.toString());
+            /*TESTCASE 4*/
+            for(int i = 1; i <= 40; i++){
+                Operations op = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/4/testcase/"+i, Operations.class);
+                OperationsClient operationsClient = new OperationsClient();
+                ResponseEntity<SolutionBigInteger> responseEntityOp= operationsClient.calc(op);
+                ResponseEntity<Result> response = restTemplate.postForEntity(
+                        getBaseUrl()+"/assignment/stage/4/testcase/"+i,
+                        responseEntityOp,
+                        Result.class);
+            }
         };
     }
 }
