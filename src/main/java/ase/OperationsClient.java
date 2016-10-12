@@ -7,22 +7,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigInteger;
+
 /**
  * Created by Agnes on 12/10/16.
  */
 @RestController
 public class OperationsClient {
 
-    private int[] values;
+    private BigInteger[] values;
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<Solution> calc(@RequestBody Operations var
+    public ResponseEntity<SolutionBigInteger> calc(@RequestBody Operations var
     ) {
-        Solution solution = new Solution();
+        SolutionBigInteger solution = new SolutionBigInteger();
 
         values = var.getNumbers();
         String operator = var.getOperator();
-        Integer result = 0;
+        BigInteger result = null;
         if(operator.equals("+")){
             result = sum();
         }
@@ -34,29 +36,29 @@ public class OperationsClient {
         }
 
         solution.setSolution(result);
-        return new ResponseEntity<Solution>(solution, HttpStatus.OK);
+        return new ResponseEntity<SolutionBigInteger>(solution, HttpStatus.OK);
     }
 
-    private Integer sub() {
-        Integer result = 0;
-        for (int number : values) {
-            result -= number;
+    private BigInteger sub() {
+        BigInteger result = values[0];
+        for(int i = 1; i < values.length; i++){
+           result = result.subtract(values[i]);
         }
         return result;
     }
 
-    private Integer sum() {
-        Integer result = 0;
-        for (int number : values) {
-            result += number;
+    private BigInteger sum() {
+        BigInteger result = values[0];
+        for(int i = 1; i < values.length; i++){
+            result = result.add(values[i]);
         }
         return result;
     }
 
-    private Integer multi() {
-        Integer result = 0;
-        for (int number : values) {
-            result *= number;
+    private BigInteger multi() {
+        BigInteger result = values[0];
+        for(int i = 1; i < values.length; i++){
+            result = result.multiply(values[i]);
         }
         return result;
     }
