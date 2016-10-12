@@ -49,7 +49,14 @@ public class Application {
 
             Variables var = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/2/testcase/1", Variables.class);
             log.info(var.toString());
-
+            VariablesClient variablesClient = new VariablesClient();
+            ResponseEntity<Variables> responseEntityVar= variablesClient.invert(var);
+            log.info(responseEntityVar.toString());
+            /*ResponseEntity<Result> responseVar = restTemplate.postForEntity(
+                    getBaseUrl()+"/assignment/stage/2/testcase/1",
+                    responseEntity,
+                    Result.class);
+            log.info(responseVar.toString());*/
 
             NumberArray numArr = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/3/testcase/1", NumberArray.class);
             log.info(numArr.toString());
