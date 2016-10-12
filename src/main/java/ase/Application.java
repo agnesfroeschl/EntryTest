@@ -14,7 +14,6 @@ import org.springframework.web.client.RestTemplate;
 public class Application {
 
     private static final Logger log = LoggerFactory.getLogger(Application.class);
-    private static final RestTemplate REST_TEMPLATE = new RestTemplate();
     public static void main(String args[]) {
         SpringApplication.run(Application.class);
     }
@@ -39,7 +38,7 @@ public class Application {
                 log.info(number.toString());
                 NumberClient numberClient = new NumberClient();
                 ResponseEntity<Solution> responseEntity= numberClient.invert(number);
-                ResponseEntity<Result> response = restTemplate.postForEntity(
+                restTemplate.postForEntity(
                         getBaseUrl()+"/assignment/stage/1/testcase/"+i,
                         responseEntity,
                         Result.class);
@@ -50,7 +49,7 @@ public class Application {
                 Variables var = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/2/testcase/"+i, Variables.class);
                 VariablesClient variablesClient = new VariablesClient();
                 ResponseEntity<Solution> responseEntityVar= variablesClient.sum(var);
-                ResponseEntity<Result> response = restTemplate.postForEntity(
+                restTemplate.postForEntity(
                         getBaseUrl()+"/assignment/stage/2/testcase/"+i,
                         responseEntityVar,
                         Result.class);
@@ -61,7 +60,7 @@ public class Application {
                 NumberArray numberArray = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/3/testcase/"+i, NumberArray.class);
                 NumberArrayClient variablesClient = new NumberArrayClient();
                 ResponseEntity<Solution> responseEntityNumArr= variablesClient.sum(numberArray);
-                ResponseEntity<Result> response = restTemplate.postForEntity(
+                restTemplate.postForEntity(
                         getBaseUrl()+"/assignment/stage/3/testcase/"+i,
                         responseEntityNumArr,
                         Result.class);
@@ -72,7 +71,7 @@ public class Application {
                 Operations op = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/4/testcase/"+i, Operations.class);
                 OperationsClient operationsClient = new OperationsClient();
                 ResponseEntity<SolutionBigInteger> responseEntityOp= operationsClient.calc(op);
-                ResponseEntity<Result> response = restTemplate.postForEntity(
+                restTemplate.postForEntity(
                         getBaseUrl()+"/assignment/stage/4/testcase/"+i,
                         responseEntityOp,
                         Result.class);
