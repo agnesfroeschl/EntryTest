@@ -47,7 +47,15 @@ public class Application {
             log.info(response.toString());
             System.out.println(response.getBody());
 
+            Variables var = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/2/testcase/1", Variables.class);
+            log.info(var.toString());
 
+
+            NumberArray numArr = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/3/testcase/1", NumberArray.class);
+            log.info(numArr.toString());
+
+            Operations op = restTemplate.getForObject(this.getBaseUrl()+"/assignment/stage/4/testcase/1", Operations.class);
+            log.info(op.toString());
         };
     }
 }
