@@ -14,15 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class VariablesClient {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public ResponseEntity<Variables> invert(@RequestBody Variables variables
+    public ResponseEntity<Solution> sum(@RequestBody Variables variables
     ) {
 
-        Variables vars = new Variables();
-        int newA = variables.getB();
-        int newB = variables.getA();
-        vars.setA(newA);
-        vars.setB(newB);
+        Solution solution = new Solution();
+        int sum = variables.getA() + variables.getB();
+        solution.setSolution(sum);
 
-        return new ResponseEntity<Variables>(vars, HttpStatus.OK);
+        return new ResponseEntity<Solution>(solution, HttpStatus.OK);
     }
 }
